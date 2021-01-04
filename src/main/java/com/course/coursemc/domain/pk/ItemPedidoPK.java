@@ -8,6 +8,7 @@ import javax.persistence.ManyToOne;
 
 import com.course.coursemc.domain.Pedido;
 import com.course.coursemc.domain.Produto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Embeddable
 public class ItemPedidoPK implements Serializable {
@@ -21,6 +22,7 @@ public class ItemPedidoPK implements Serializable {
 	@JoinColumn(name = "produto_id")
 	private Produto produto;
 
+	@JsonIgnore
 	public Pedido getPedido() {
 		return pedido;
 	}
@@ -28,6 +30,7 @@ public class ItemPedidoPK implements Serializable {
 	public void setPedido(Pedido pedido) {
 		this.pedido = pedido;
 	}
+	
 
 	public Produto getProduto() {
 		return produto;
