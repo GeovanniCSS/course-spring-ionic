@@ -9,16 +9,20 @@ import com.course.coursemc.domain.Categoria;
 import com.course.coursemc.repositories.CategoriaRepository;
 import com.course.coursemc.services.exceptions.ObjectNotFoundException;
 
-
 @Service
 public class CategoriaService {
 
 	@Autowired
-	private CategoriaRepository repository; 
+	private CategoriaRepository repository;
 
 	public Categoria find(Integer id) {
 		Optional<Categoria> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
-				 "Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));
+				"Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));
+	}
+
+	public Categoria insert(Categoria obj) {
+		obj.setId(null);
+		return repository.save(obj);
 	}
 }
