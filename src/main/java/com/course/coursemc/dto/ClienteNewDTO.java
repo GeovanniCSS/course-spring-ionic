@@ -2,20 +2,39 @@ package com.course.coursemc.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
+import com.course.coursemc.services.validation.ClienteInsert;
+
+@ClienteInsert
 public class ClienteNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@NotEmpty(message = "O nome não pode ficar em branco")
 	private String nome;
+
+	@Email(message = "O e-mail é inválido")
+	@NotEmpty(message = "O e-mail não pode ficar em branco")
 	private String email;
+
+	@NotEmpty(message = "O nome não pode ficar em branco")
 	private String cpfOuCnpj;
+
 	private Integer tipo;
 
+	@NotEmpty(message = "O logradouro não pode ficar em branco")
 	private String logradouro;
+
+	@NotEmpty(message = "O número não pode ficar em branco")
 	private String numero;
 	private String complemento;
 	private String bairro;
+
+	@NotEmpty(message = "O cep não pode ficar em branco")
 	private String cep;
 
+	@NotEmpty(message = "O telefone não pode ficar em branco")
 	private String telefone1;
 	private String telefone2;
 	private String telefone3;
