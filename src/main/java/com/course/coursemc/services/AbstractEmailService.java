@@ -4,9 +4,11 @@ import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.stereotype.Component;
 
 import com.course.coursemc.domain.Pedido;
 
+@Component
 public abstract class AbstractEmailService implements EmailService {
 
 	@Value("${default.sender}")
