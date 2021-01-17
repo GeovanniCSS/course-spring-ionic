@@ -13,6 +13,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
+import com.course.coursemc.domain.Cliente;
 import com.course.coursemc.domain.Pedido;
 
 public abstract class AbstractEmailService implements EmailService {
@@ -22,7 +23,7 @@ public abstract class AbstractEmailService implements EmailService {
 
 	@Autowired
 	private TemplateEngine templateEngine;
-	
+
 	@Autowired
 	private JavaMailSender javaMailSender;
 
@@ -47,14 +48,13 @@ public abstract class AbstractEmailService implements EmailService {
 		context.setVariable("pedido", obj);
 		return templateEngine.process("email/confirmacaoPedido", context);
 	}
-	
+
 	@Override
 	public void sendOrderConfirmationHtmlEmail(Pedido obj) {
 		try {
 			MimeMessage mm = prepareMimeMessageFromPedido(obj);
 			sendHtmlEmail(mm);
-		}
-		catch (MessagingException e) {
+		} catch (MessagingException e) {
 			sendOrderConfirmationEmail(obj);
 		}
 	}
@@ -68,6 +68,22 @@ public abstract class AbstractEmailService implements EmailService {
 		mmh.setSentDate(new Date(System.currentTimeMillis()));
 		mmh.setText(htmlFromTemplatePedido(obj), true);
 		return mimeMessage;
+	}
+
+	@Override
+	public void sendNewPasswordEmail(Cliente cliente, String newPass) {
+		SimpleMailMessage mailMessage = prepareSimpleNewPasswordEmail(cliente, newPass);
+		sendEmail(mailMessage);
+	}
+
+	protected SimpleMailMessage prepareSimpleNewPasswordEmail(Cliente obj, String newPass) {
+		SimpleMailMessage sm = new SimpleMailMessage();
+		sm.setTo(obj.getEmail());
+		sm.setFrom(sender);
+		sm.setSubject("Nova senha");
+		sm.setSentDate(new Date(System.currentTimeMillis()));
+		sm.setText("Nova senha temporária: "+newPass);
+		return sm;
 	}
 
 }
