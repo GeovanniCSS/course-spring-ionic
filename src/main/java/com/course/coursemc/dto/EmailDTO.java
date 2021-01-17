@@ -9,7 +9,7 @@ public class EmailDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@NotEmpty(message = "Preenchimento obrigatório")
-	@Email(message = "Email inválido")
+	@Email(message = "E-mail inválido")
 	private String email;
 
 	public EmailDTO() {
