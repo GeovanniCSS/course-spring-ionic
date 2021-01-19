@@ -48,6 +48,12 @@ public class ClienteResource {
 		return ResponseEntity.ok().body(obj);
 	}
 
+	@GetMapping(value = "/email")
+	public ResponseEntity<Cliente> find(@RequestParam(value = "value") String email) {
+		Cliente obj = service.findByEmail(email);
+		return ResponseEntity.ok().body(obj);
+	}
+
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	@GetMapping(value = "/page")
 	public ResponseEntity<Page<ClienteDTO>> findPage(@RequestParam(value = "page", defaultValue = "0") Integer page,
@@ -81,9 +87,9 @@ public class ClienteResource {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
-	
-	@PostMapping(value="/picture")
-	public ResponseEntity<Void> uploadProfilePicture(@RequestParam(name="file") MultipartFile file) {
+
+	@PostMapping(value = "/picture")
+	public ResponseEntity<Void> uploadProfilePicture(@RequestParam(name = "file") MultipartFile file) {
 		URI uri = service.uploadProfilePicture(file);
 		return ResponseEntity.created(uri).build();
 	}
