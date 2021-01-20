@@ -1,4 +1,4 @@
-package com.course.coursemc.repositories;
+ package com.course.coursemc.repositories;
 
 import java.util.List;
 
@@ -14,5 +14,4 @@ public interface CidadeRepository extends JpaRepository<Cidade, Integer>{
 	@Transactional(readOnly = true)
 	public List<Cidade> findAllByEstadoId(Integer id);
 	
-
 }
